@@ -1,4 +1,5 @@
 import './style.css';
+import { loadAddTaskView } from './add-task';
 
 const ProjectList = (() => {
     let projects = [];
@@ -18,6 +19,7 @@ const ProjectList = (() => {
         remove,
         getProjects
     }
+    
 })();
 
 class Project {
@@ -38,7 +40,6 @@ class Project {
 }
 
 let taskCounter = 0;
-
 class Task {
     constructor(title, dueDate = '') {
         this.title = title;
@@ -67,3 +68,5 @@ class Task {
         this.isComplete = !this.isComplete
     }
 } 
+
+document.querySelector('.add-task').addEventListener('click', loadAddTaskView)
