@@ -1,32 +1,12 @@
 import './style.css';
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
-import { Project } from './ProjectClass.js'
-import { Task } from './TaskClass.js'
+import { Project, ProjectList } from './ProjectClass.js'
 import { updateScreen } from './display';
 
-window.projectList = (() => {
-    let projects = [];
-
-    const add = (project) => {
-        projects.push(project);
-    }
-
-    const remove = (projectName) => {
-        projects = projects.filter(project => project.name != projectName);
-    }
-
-    const getProjects = () => projects;
-
-    return {
-        add,
-        remove,
-        getProjects
-    }
-
-})();
-
-window.projectList.add(new Project('Inbox'))
+let inbox = new Project('Inbox');
+inbox.active = true;
+ProjectList.add(inbox);
 
 // initial loading
 updateScreen()

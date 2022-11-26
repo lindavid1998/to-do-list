@@ -1,4 +1,4 @@
-import { Project } from './ProjectClass.js'
+import { Project, ProjectList } from './ProjectClass.js'
 import { updateProjects } from './display.js'
 
 export function openAddProjectForm() {
@@ -11,17 +11,17 @@ export function closeAddProjectForm() {
 
 export function addProjectClickHandler() {
     // get user input
-    let projectName = document.querySelector('#name').value
+    let name = document.querySelector('#name').value
 
     // alert if project name is already taken
-    let projects = window.projectList.getProjects()
-    if (projects.filter(project => project.name == projectName).length > 0) {
+    let projects = ProjectList.projects
+    if (projects.filter(project => project.name == name).length > 0) {
         alert('Project name already taken')
         return
     }
 
     // add to project list
-    window.projectList.add(new Project(projectName)) 
+    ProjectList.add(new Project(name))
 
     // reset and close form
     document.querySelector('#name').value = ''
