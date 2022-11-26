@@ -1,5 +1,8 @@
-import './style.css';
-import { loadAddTaskView } from './add-task';
+// import './style.css';
+import { showAddTask } from './add-task.js';
+import { openAddProjectForm, closeAddProjectForm } from './add-project.js'
+
+let taskCounter = 0;
 
 const ProjectList = (() => {
     let projects = [];
@@ -19,7 +22,7 @@ const ProjectList = (() => {
         remove,
         getProjects
     }
-    
+
 })();
 
 class Project {
@@ -39,7 +42,6 @@ class Project {
     }
 }
 
-let taskCounter = 0;
 class Task {
     constructor(title, dueDate = '') {
         this.title = title;
@@ -69,4 +71,5 @@ class Task {
     }
 } 
 
-document.querySelector('.add-task').addEventListener('click', loadAddTaskView)
+document.querySelector('.add-task-minimized').addEventListener('click', showAddTask)
+document.querySelector('.add-project').addEventListener('click', openAddProjectForm)

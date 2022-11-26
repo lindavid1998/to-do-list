@@ -1,4 +1,4 @@
-function createDiv(className, text = '') {
+export function createDiv(className, text = '') {
     let element = document.createElement('div');
     element.classList.add(className);
     element.textContent = text;
@@ -6,9 +6,7 @@ function createDiv(className, text = '') {
     return element
 }
 
-export function loadAddTaskView() {
-    document.querySelector('.add-task').style.display = 'none';
-
+function createInputField() {
     let textarea = document.createElement('textarea');
     textarea.setAttribute('name', 'task-title');
     textarea.setAttribute('cols', '30');
@@ -18,10 +16,14 @@ export function loadAddTaskView() {
     let input = document.createElement('input');
     input.setAttribute('type', 'date');
 
-    let taskInfo = createDiv('task-info');
-    taskInfo.append(textarea);
-    taskInfo.append(input);
+    let inputField = createDiv('user-input');
+    inputField.append(textarea);
+    inputField.append(input);
 
+    return inputField
+}
+
+function createButtons() {
     let addButton = document.createElement('button');
     addButton.setAttribute('class', 'add-task-button');
     addButton.textContent = 'Add task';
@@ -30,20 +32,27 @@ export function loadAddTaskView() {
     cancelButton.setAttribute('class', 'cancel-button');
     cancelButton.textContent = 'Cancel';
 
-    cancelButton.addEventListener('click', hideAddTaskView);
+    cancelButton.addEventListener('click', hideAddTask);
 
-    let addTaskButtons = createDiv('add-task-buttons')
-    addTaskButtons.appendChild(cancelButton);
-    addTaskButtons.appendChild(addButton);
+    let buttons = createDiv('add-task-buttons')
+    buttons.appendChild(cancelButton);
+    buttons.appendChild(addButton);
+
+    return buttons
+}
+
+export function showAddTask() {
+    // may want to divide this into 2 shorter functions
+    document.querySelector('.add-task-minimized').style.display = 'none';
 
     let element = createDiv('add-task-detailed');
-    element.appendChild(taskInfo);
-    element.appendChild(addTaskButtons);
+    element.appendChild(createInputField());
+    element.appendChild(createButtons());
 
     document.querySelector('.incomplete').appendChild(element);
 }
 
-function hideAddTaskView() {
-    document.querySelector('.add-task').style.display = 'flex';
+function hideAddTask() {
+    document.querySelector('.add-task-minimized').style.display = 'flex';
     document.querySelector('.add-task-detailed').remove()
 }
