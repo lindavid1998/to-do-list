@@ -1,10 +1,12 @@
-// import './style.css';
+import './style.css';
 import { showAddTask } from './add-task.js';
-import { openAddProjectForm, closeAddProjectForm } from './add-project.js'
+import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
+import { Project } from './ProjectClass.js'
+// import { Task } from './TaskClass.js'
 
-let taskCounter = 0;
+window.taskCounter = 0;
 
-const ProjectList = (() => {
+window.projectList = (() => {
     let projects = [];
 
     const add = (project) => {
@@ -25,51 +27,10 @@ const ProjectList = (() => {
 
 })();
 
-class Project {
-    constructor(name) {
-        this.name = name;
-        this.tasks = []; //array of objects
-    }
-
-    addTask(task) {
-        // task is instance of class Task
-        this.tasks.push(task);
-    }
-
-    removeTask(taskName) {
-        // taskName is string
-        this.tasks = this.tasks.filter(task => task.title != taskName);
-    }
-}
-
-class Task {
-    constructor(title, dueDate = '') {
-        this.title = title;
-        this.dueDate = dueDate;
-        this.id = taskCounter++;
-        this.isComplete = false;
-    }
-
-    get dueDate() {
-        return this._dueDate
-    }
-
-    set dueDate(value) {
-        this._dueDate = value;
-    }
-
-    get title() {
-        return this._title
-    }
-
-    set title(value) {
-        this._title = value;
-    }
-
-    toggleComplete() {
-        this.isComplete = !this.isComplete
-    }
-} 
+window.projectList.add(new Project('Inbox'))
 
 document.querySelector('.add-task-minimized').addEventListener('click', showAddTask)
+
 document.querySelector('.add-project').addEventListener('click', openAddProjectForm)
+document.querySelector('.cancel-project-button').addEventListener('click', closeAddProjectForm)
+document.querySelector('.add-project-button').addEventListener('click', addProjectClickHandler)

@@ -42,7 +42,6 @@ function createButtons() {
 }
 
 export function showAddTask() {
-    // may want to divide this into 2 shorter functions
     document.querySelector('.add-task-minimized').style.display = 'none';
 
     let element = createDiv('add-task-detailed');
