@@ -2,9 +2,8 @@ import './style.css';
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
 import { Project } from './ProjectClass.js'
-// import { Task } from './TaskClass.js'
-
-window.taskCounter = 0;
+import { Task } from './TaskClass.js'
+import { updateScreen } from './display';
 
 window.projectList = (() => {
     let projects = [];
@@ -29,8 +28,11 @@ window.projectList = (() => {
 
 window.projectList.add(new Project('Inbox'))
 
-document.querySelector('.add-task-minimized').addEventListener('click', showAddTask)
+// initial loading
+updateScreen()
 
+// add event listeners
+document.querySelector('.add-task-minimized').addEventListener('click', showAddTask)
 document.querySelector('.add-project').addEventListener('click', openAddProjectForm)
 document.querySelector('.cancel-project-button').addEventListener('click', closeAddProjectForm)
 document.querySelector('.add-project-button').addEventListener('click', addProjectClickHandler)

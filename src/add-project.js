@@ -1,4 +1,5 @@
 import { Project } from './ProjectClass.js'
+import { updateProjects } from './display.js'
 
 export function openAddProjectForm() {
     document.querySelector('.add-project-form').style.display = 'block';
@@ -25,4 +26,7 @@ export function addProjectClickHandler() {
     // reset and close form
     document.querySelector('#name').value = ''
     closeAddProjectForm()
+
+    // update project list
+    updateProjects()
 }

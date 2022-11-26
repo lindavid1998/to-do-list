@@ -1,8 +1,10 @@
+let taskCounter = 0;
+
 export class Task {
     constructor(title, dueDate = '') {
         this.title = title;
         this.dueDate = dueDate;
-        this.id = window.taskCounter++;
+        this.id = taskCounter++;
         this.isComplete = false;
     }
 
