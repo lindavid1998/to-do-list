@@ -1,7 +1,7 @@
 let taskCounter = 0;
 
 export class Task {
-    constructor(title, dueDate = 'No date') {
+    constructor(title, dueDate) {
         this.title = title;
         this.dueDate = dueDate;
         this.id = taskCounter++;

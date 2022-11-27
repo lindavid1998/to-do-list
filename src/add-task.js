@@ -67,6 +67,9 @@ function addTaskClickHandler() {
     // read user data 
     let taskName = document.querySelector('#task-title').value;
     let taskDueDate = document.querySelector('#due-date').value;
+    if (taskDueDate == '') {
+        taskDueDate = 'No date'
+    }
 
     // alert user if task name is empty
     if (!taskName) {
@@ -78,7 +81,7 @@ function addTaskClickHandler() {
     let task = new Task(taskName, taskDueDate);
 
     // add new task to current project
-    getActiveProject().addTask(task);[]
+    getActiveProject().addTask(task);
 
     // refresh task list
     updateTasks();

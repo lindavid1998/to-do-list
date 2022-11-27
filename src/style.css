@@ -312,3 +312,5 @@ input[type="date"] {
     justify-content: right;
     gap: 15px;
 }
+
+.task-id { display: none }

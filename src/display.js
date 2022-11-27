@@ -25,18 +25,6 @@ export function updateProjects() {
     }
 }
 
-function setActiveProject(e) {
-    if (e.target === this) {
-        getActiveProject().toggleActive()
-        let next = e.target.querySelector('.title').textContent
-        
-        let index = ProjectList.getProjects().map(proj => proj.name).indexOf(next)
-        ProjectList.getProjects()[index].active = true
-        
-        updateTasks()
-    }
-}
-
 function createProjectDiv(projectName) {
     let name = createDiv('title', projectName)
     
@@ -56,6 +44,18 @@ function createProjectDiv(projectName) {
     element.addEventListener('click', setActiveProject)
     
     return element
+}
+
+function setActiveProject(e) {
+    if (e.target === this) {
+        getActiveProject().toggleActive()
+        let next = e.target.querySelector('.title').textContent
+        
+        let index = ProjectList.getProjects().map(proj => proj.name).indexOf(next)
+        ProjectList.getProjects()[index].active = true
+        
+        updateTasks()
+    }
 }
 
 function removeProject(e) {
@@ -116,6 +116,7 @@ function createTaskDiv(task) {
     checkbox.append(icon)
 
     let title = createDiv('title', task.title)
+    let taskID = createDiv('task-id', task.id)
     let due = createDiv('due-date', task.dueDate)
 
     let closeIcon = document.createElement('span')
@@ -129,6 +130,7 @@ function createTaskDiv(task) {
     let element = createDiv('task')
     element.appendChild(checkbox)
     element.appendChild(title)
+    element.appendChild(taskID)
     element.appendChild(due)
     element.appendChild(del)
 
@@ -138,10 +140,10 @@ function createTaskDiv(task) {
 function removeTask(e) {
     // read task name
     let parent = e.target.parentNode.parentNode
-    let taskName = parent.querySelector('.title').textContent
+    let taskID = parent.querySelector('.task-id').textContent
 
     // remove task from project 
-    getActiveProject().removeTask(taskName)
+    getActiveProject().removeTask(taskID)
 
     // refresh page
     updateTasks()

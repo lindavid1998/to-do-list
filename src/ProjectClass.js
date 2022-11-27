@@ -30,10 +30,9 @@ class Project {
         // task is instance of class Task
         this.tasks.push(task);
     }
-
-    removeTask(taskName) {
-        // taskName is string
-        this.tasks = this.tasks.filter(task => task.title != taskName);
+    
+    removeTask(ID) {
+        this.tasks = this.tasks.filter(task => task.id != ID);
     }
 
     toggleActive() {
