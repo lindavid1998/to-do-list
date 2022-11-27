@@ -257,8 +257,6 @@ input[type="date"] {
     width: 30px;
 }
 
-/* add project form */
-
 .add-project-form {
     display: none;
     padding: 20px;
@@ -314,3 +312,11 @@ input[type="date"] {
 }
 
 .task-id { display: none }
+
+.task-radio-icon:hover {
+    color: #16a200;
+}
+
+.task-delete-icon:hover {
+    color: #9f2422;
+}

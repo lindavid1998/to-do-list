@@ -36,7 +36,6 @@ function createProjectDiv(projectName) {
 
     let iconContainer = createDiv('delete-icon')
     iconContainer.appendChild(closeIcon)
-    
 
     let element = createDiv('project')
     element.appendChild(name)
@@ -95,22 +94,27 @@ export function updateTasks() {
         project => project.name == getActiveProject().name
     );
 
-    // iterate through task list and append to DOM
+    // iterate through task list 
     let tasks = project.tasks
     if (tasks) {
         for (let i = 0; i < tasks.length; i++) {
-            document.querySelector('.incomplete').insertBefore(
-                createTaskDiv(tasks[i]),
-                document.querySelector('.add-task-minimized')
-            );
+            // if task is incomplete, append to DOM
+            if (!tasks[i].isComplete) {
+                document.querySelector('.incomplete').insertBefore(
+                    createTaskDiv(tasks[i]),
+                    document.querySelector('.add-task-minimized')
+                );
+            }
         }
     }
 }
 
 function createTaskDiv(task) {
     let icon = document.createElement('span')
-    icon.setAttribute('class', 'material-icons')
+    icon.classList.add('material-icons')
+    icon.classList.add('task-radio-icon')
     icon.textContent = 'radio_button_unchecked'
+    icon.addEventListener('click', completeTask)
 
     let checkbox = createDiv('checkbox')
     checkbox.append(icon)
@@ -120,7 +124,8 @@ function createTaskDiv(task) {
     let due = createDiv('due-date', task.dueDate)
 
     let closeIcon = document.createElement('span')
-    closeIcon.setAttribute('class', 'material-icons')
+    closeIcon.classList.add('material-icons')
+    closeIcon.classList.add('task-delete-icon')
     closeIcon.textContent = 'close'
 
     let del = createDiv('delete')
@@ -138,13 +143,29 @@ function createTaskDiv(task) {
 }
 
 function removeTask(e) {
-    // read task name
-    let parent = e.target.parentNode.parentNode
-    let taskID = parent.querySelector('.task-id').textContent
+    // read task ID
+    let taskID = getTaskID(e)
 
     // remove task from project 
     getActiveProject().removeTask(taskID)
 
-    // refresh page
     updateTasks()
+}
+
+function completeTask(e) {
+    // read task ID
+    let taskID = getTaskID(e)
+
+    // access task inside active project
+    let index = getActiveProject().tasks.map(task => task.id).indexOf(taskID)
+
+    // set complete to true
+    getActiveProject().tasks[index].toggleComplete()
+
+    updateTasks()
+}
+
+function getTaskID(e) {
+    let parent = e.target.parentNode.parentNode
+    return Number(parent.querySelector('.task-id').textContent)
 }
