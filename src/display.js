@@ -80,6 +80,7 @@ function createTaskDiv(task) {
 
     let del = createDiv('delete')
     del.appendChild(closeIcon)
+    del.addEventListener('click', removeTask)
 
     let element = createDiv('task')
     element.appendChild(checkbox)
@@ -88,4 +89,16 @@ function createTaskDiv(task) {
     element.appendChild(del)
 
     return element
+}
+
+function removeTask(e) {
+    // read task name
+    let parent = e.target.parentNode.parentNode
+    let taskName = parent.querySelector('.title').textContent
+
+    // remove task from project 
+    getActiveProject().removeTask(taskName)
+
+    // refresh page
+    updateTasks()
 }

@@ -15,7 +15,7 @@ export function addProjectClickHandler() {
 
     // alert if project name is already taken
     let projects = ProjectList.projects
-    if (projects.filter(project => project.name == name).length > 0) {
+    if (projects.find(project => project.name == name)) {
         alert('Project name already taken')
         return
     }
