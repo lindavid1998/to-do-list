@@ -9,10 +9,12 @@ const ProjectList = (() => {
         projects = projects.filter(project => project.name != projectName);
     }
 
+    const getProjects = () => projects
+
     return {
         add,
         remove,
-        projects
+        getProjects
     }
 
 })();
@@ -40,7 +42,7 @@ class Project {
 }
 
 function getActiveProject() {
-    let projects = ProjectList.projects
+    let projects = ProjectList.getProjects()
     return projects.find(proj => proj.active)
 }
 

@@ -13,8 +13,14 @@ export function addProjectClickHandler() {
     // get user input
     let name = document.querySelector('#name').value
 
+    // alert if input is empty
+    if (name == '') {
+        alert('Project name cannot be empty')
+        return 
+    }
+
     // alert if project name is already taken
-    let projects = ProjectList.projects
+    let projects = ProjectList.getProjects()
     if (projects.find(project => project.name == name)) {
         alert('Project name already taken')
         return

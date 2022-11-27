@@ -13,13 +13,12 @@ export function updateProjects() {
     );
 
     // get list of projects
-    let projects = ProjectList.projects
+    let projects = ProjectList.getProjects()
 
     // iterate through each project and append to DOM
     for (let i = 0; i < projects.length; i++) {
-        let element = createDiv('project', projects[i].name);
-        element.addEventListener('click', setActiveProject)
-        
+        let element = createProjectDiv(projects[i].name);
+    
         document.querySelector('.projects').insertBefore(
             element, document.querySelector('.add-project')
         );
@@ -27,13 +26,58 @@ export function updateProjects() {
 }
 
 function setActiveProject(e) {
-    getActiveProject().toggleActive()
+    if (e.target === this) {
+        getActiveProject().toggleActive()
+        let next = e.target.querySelector('.title').textContent
+        
+        let index = ProjectList.getProjects().map(proj => proj.name).indexOf(next)
+        ProjectList.getProjects()[index].active = true
+        
+        updateTasks()
+    }
+}
 
-    let next = e.target.textContent;
-    let index = ProjectList.projects.map(proj => proj.name).indexOf(next)
-    ProjectList.projects[index].active = true
+function createProjectDiv(projectName) {
+    let name = createDiv('title', projectName)
     
-    updateTasks()
+    let closeIcon = document.createElement('span')
+    closeIcon.classList.add('class', 'material-icons')
+    closeIcon.classList.add('class', 'md-12')
+    closeIcon.textContent = 'close'
+    closeIcon.addEventListener('click', removeProject)
+
+    let iconContainer = createDiv('delete-icon')
+    iconContainer.appendChild(closeIcon)
+    
+
+    let element = createDiv('project')
+    element.appendChild(name)
+    element.appendChild(iconContainer)
+    element.addEventListener('click', setActiveProject)
+    
+    return element
+}
+
+function removeProject(e) {
+    // read project name to remove
+    let parent = e.target.parentNode.parentNode
+    let projectName = parent.querySelector('.title').textContent
+
+    // alert if attempt to delete inbox
+    if (projectName == 'Inbox') {
+        alert('Cannot delete Inbox')
+        return
+    }
+
+    // remove project from project list
+    ProjectList.remove(projectName)
+    
+    // set inbox as the active project
+    let projects = ProjectList.getProjects()
+    let index = projects.map(proj => proj.name).indexOf('Inbox')
+    projects[index].active = true
+
+    updateScreen()
 }
 
 export function updateTasks() {
@@ -47,7 +91,7 @@ export function updateTasks() {
     projectTitle.textContent = getActiveProject().name
 
     // get task list of current project
-    let project = ProjectList.projects.find(
+    let project = ProjectList.getProjects().find(
         project => project.name == getActiveProject().name
     );
 
