@@ -2,7 +2,8 @@ import './style.css';
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
 import { Project, ProjectList } from './ProjectClass.js'
-import { updateScreen } from './display';
+import { updateScreen, changeDueDateView } from './display.js';
+
 
 let inbox = new Project('Inbox');
 inbox.active = true;
@@ -16,3 +17,4 @@ document.querySelector('.add-task-minimized').addEventListener('click', showAddT
 document.querySelector('.add-project').addEventListener('click', openAddProjectForm)
 document.querySelector('.cancel-project-button').addEventListener('click', closeAddProjectForm)
 document.querySelector('.add-project-button').addEventListener('click', addProjectClickHandler)
+document.querySelector('.due-date-view').addEventListener('click', changeDueDateView)

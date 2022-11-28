@@ -1,5 +1,6 @@
 import { createDiv } from "./add-task.js"
 import { getActiveProject, ProjectList } from "./ProjectClass.js";
+import { format } from 'date-fns'
 
 export function updateScreen() {
    updateProjects()
@@ -111,6 +112,20 @@ export function updateTasks() {
     }
 }
 
+export function changeDueDateView() {
+    // toggle icon
+    let view = document.querySelector('.active-view')
+    
+    if (view.textContent == 'today') {
+        view.textContent = 'hourglass_empty'
+    } else {
+        view.textContent = 'today'
+    }
+
+    // refresh tasks
+    updateTasks()
+}
+
 function createTaskDiv(task) {
     let checkbox = createDiv('checkbox')
     let icon = createTaskRadioButton(task)
@@ -118,7 +133,17 @@ function createTaskDiv(task) {
 
     let title = createDiv('title', task.title)
     let taskID = createDiv('task-id', task.id)
-    let due = createDiv('due-date', task.dueDate)
+
+    let due = createDiv('due-date')
+    let view = document.querySelector('.active-view').textContent
+    // if no due date
+    if (task.dueDate == '') {
+        due.textContent = 'No due date'
+    } else if (view == 'today') { // if date view
+        due.textContent = `due ${format(task.dueDate, 'dd-MMM-yyyy')}`
+    } else { // if time remaining view
+        due.textContent = `due ${task.timeUntilDue}`
+    }
 
     let del = createDiv('delete')
     let closeIcon = createTaskDeleteButton()

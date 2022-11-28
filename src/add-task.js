@@ -112,10 +112,6 @@ function addTaskClickHandler() {
     let dueDate = document.querySelector('#due-date').value;
     let priority = document.querySelector('#priority').value;
 
-    if (dueDate == '') {
-        dueDate = 'No date'
-    }
-
     // alert user if task name is empty
     if (!taskName) {
         alert('Task name cannot be empty')

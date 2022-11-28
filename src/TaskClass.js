@@ -1,3 +1,5 @@
+import { formatDistance } from 'date-fns'
+
 let taskCounter = 0;
 
 export class Task {
@@ -14,7 +16,17 @@ export class Task {
     }
 
     set dueDate(value) {
-        this._dueDate = value;
+        if (value == '') {
+            this._dueDate = '';
+        } else {
+            // get date input in UTC
+            let utcDate = new Date(value);
+
+            // convert to local time
+            this._dueDate = new Date(
+                utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
+            ); 
+        }
     }
 
     get title() {
@@ -35,5 +47,10 @@ export class Task {
 
     toggleComplete() {
         this.isComplete = !this.isComplete
+    }
+
+    get timeUntilDue() {
+        let today = new Date();
+        return formatDistance(this.dueDate, today, { addSuffix: true });
     }
 } 
