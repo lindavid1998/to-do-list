@@ -23,9 +23,9 @@ export class Task {
             let utcDate = new Date(value);
 
             // convert to local time
-            this._dueDate = new Date(
-                utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
-            ); 
+            let localDate = utcDate.getTime() + utcDate.getTimezoneOffset() * 60000;
+
+            this._dueDate = new Date(localDate);
         }
     }
 

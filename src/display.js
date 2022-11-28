@@ -94,12 +94,11 @@ export function updateTasks() {
     let project = ProjectList.getProjects().find(
         project => project.name == getActiveProject().name
     );
-
-    // iterate through task list 
     let tasks = project.tasks
 
     // if task list is not empty
     if (tasks) {
+        // iterate through task list 
         for (let i = 0; i < tasks.length; i++) {
             // if task is incomplete, append to DOM
             if (!tasks[i].isComplete) {
@@ -113,9 +112,9 @@ export function updateTasks() {
 }
 
 export function changeDueDateView() {
-    // toggle icon
     let view = document.querySelector('.active-view')
     
+    // toggle icon
     if (view.textContent == 'today') {
         view.textContent = 'hourglass_empty'
     } else {
@@ -136,8 +135,8 @@ function createTaskDiv(task) {
 
     let due = createDiv('due-date')
     let view = document.querySelector('.active-view').textContent
-    // if no due date
-    if (task.dueDate == '') {
+    
+    if (task.dueDate == '') { // if no due date
         due.textContent = 'No due date'
     } else if (view == 'today') { // if date view
         due.textContent = `due ${format(task.dueDate, 'dd-MMM-yyyy')}`
@@ -147,24 +146,18 @@ function createTaskDiv(task) {
 
     let del = createDiv('delete')
     let closeIcon = createTaskDeleteButton()
-    del.appendChild(closeIcon)
+    del.append(closeIcon)
     del.addEventListener('click', removeTask)
 
     let element = createDiv('task')
-    element.appendChild(checkbox)
-    element.appendChild(title)
-    element.appendChild(taskID)
-    element.appendChild(due)
-    element.appendChild(del)
+    element.append(checkbox, title, taskID, due, del)
 
     return element
 }
 
 function createTaskRadioButton(task) {
     let element = document.createElement('span')
-    element.classList.add('material-icons')
-    element.classList.add('task-radio-icon')
-    element.classList.add(task.priority)
+    element.classList.add('material-icons', 'task-radio-icon', task.priority)
     element.textContent = 'radio_button_unchecked'
     element.addEventListener('click', completeTask)
 
@@ -173,9 +166,7 @@ function createTaskRadioButton(task) {
 
 function createTaskDeleteButton() {
     let element = document.createElement('span')
-    element.classList.add('material-icons')
-    element.classList.add('md-18')
-    element.classList.add('task-delete-icon')
+    element.classList.add('material-icons', 'md-18', 'task-delete-icon')
     element.textContent = 'close'
 
     return element

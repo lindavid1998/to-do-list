@@ -127,7 +127,7 @@ function addTaskClickHandler() {
     // refresh task list
     updateTasks();
 
-    // clear user input
+    // reset user input
     document.querySelector('#task-title').value = ''
     document.querySelector('#due-date').value = ''
     document.querySelector('#priority .placeholder').selected = true;
