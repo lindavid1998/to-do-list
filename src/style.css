@@ -1,3 +1,5 @@
+/* General styling */
+
 @font-face {
     font-family: Graphik;
     src: url("./Graphik-Font-Family/GraphikRegular.otf") format("opentype");
@@ -10,18 +12,36 @@
 }
 
 * {
+    box-sizing: border-box;
+    color: #e6e6e6;
     font-family: Graphik;
     margin: 0;
     padding: 0;
-    color: #e6e6e6;
-    box-sizing: border-box;
 }
 
-.material-icons.md-12 { font-size: 12px; }
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-12 {
+    font-size: 12px;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+.material-icons.red {
+    color: #9f2422;
+}
 
 input:focus, textarea:focus {
     outline: none;
@@ -31,43 +51,43 @@ input {
     all: unset;
 }
 
+/* Page styling */
+
 .content {
-    height: 100vh;
     display: grid;
     grid-template-columns: 220px 1fr;
     grid-template-rows: 80px 1fr 40px;
+    height: 100vh;
 }
 
 .header {
+    align-items: center;
+    background-color: #282828;
+    display: flex;
     font-size: 1.5rem;
     font-weight: bold;
-    grid-row: 1;
     grid-column: 1 / -1;
-    background-color: #282828;
+    grid-row: 1;
     padding: 20px;
-
-    display: flex;
-    align-items: center;
-}
-
-.projects {
-    grid-row: 2;
-    grid-column: 1;
-    background-color: #252525;
-    padding: 20px;
-}
-
-.tasks {
-    grid-row: 2;
-    grid-column: 2;
-    background-color: #202020;
-    padding: 30px 80px;
 }
 
 .footer {
-    grid-row: 3;
-    grid-column: 1 / -1;
+    align-items: center;
     background-color: #282828;
+    display: flex;
+    gap: 15px;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-content: center;
+}
+
+/* Project section */
+
+.projects {
+    background-color: #252525;
+    grid-column: 1;
+    grid-row: 2;
+    padding: 20px;
 }
 
 .project-title {
@@ -75,21 +95,72 @@ input {
     margin-bottom: 30px;
 }
 
-.task {
-    display: flex;
-    max-width: 900px;
-    border-top: 1px solid #282828;
-    border-bottom: 1px solid #282828;
-    height: 50px;
-    align-items: center;
-    margin-bottom: 10px;
+.project-header {
+    margin-bottom: 20px;
+}
 
+.project {
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 95%;
+}
+
+.project .delete-icon {
+    display: none;
+    margin-left: auto;
+}
+
+.project:hover .delete-icon {
+    align-items: center;
+    display: flex;
+}
+
+.delete-icon:hover {
+    cursor: pointer;
+}
+
+.project:hover {
+    background-color: #303030;
+}
+
+.add-project {
+    align-items: center;
+    display: flex;
+    font-size: 0.8rem;
+    margin-top: 20px;
+}
+
+.add-project .icon {
+    width: 30px;
+}
+
+/* Task section */
+
+.tasks {
+    background-color: #202020;
+    grid-column: 2;
+    grid-row: 2;
+    padding: 30px 80px;
+}
+
+.task {
+    align-items: center;
+    border-bottom: 1px solid #282828;
+    border-top: 1px solid #282828;
+    display: flex;
     font-size: 0.9rem;
+    height: 50px;
+    margin-bottom: 10px;
+    max-width: 900px;
 }
 
 .checkbox, .delete {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 .checkbox {
@@ -114,61 +185,101 @@ input {
     margin-left: auto;
 }
 
-.complete .task {
-    color: #252525; 
+.add-task-minimized {
+    align-items: center;
+    display: flex;
+    font-size: 0.8rem;
+    height: 30px;
 }
+
+.add-task-minimized .icon {
+    width: 40px;
+}
+
+.add-task-minimized .label,
+.add-project .label {
+    color: #a8a8a8;
+}
+
+.task-id {
+    display: none
+}
+
+.p1 {
+    color: red;
+}
+
+.p2 {
+    color: orange;
+}
+
+.p3 {
+    color: rgb(0, 115, 255);
+}
+
+.task-delete-icon:hover {
+    color: #9f2422;
+}
+
+.task-radio-icon:hover {
+    color: #16a200;
+}
+
+/* Add project/task styling */
 
 .user-input, .add-task-buttons {
     max-width: 900px;
 }
 
 .user-input {
-    border: 1px solid #282828;
     border-radius: 5px;
-    padding: 10px;
+    border: 1px solid #282828;
     margin-bottom: 15px;
+    padding: 10px;
 }
 
 #task-title, input[type="text"] {
-    display: block;
     background-color:#202020;
     border: none;
+    display: block;
     resize: none;
 }
 
 .additional-info {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 7px;
 }
 
 #priority, input[type="date"] {
-    font-size: 0.8rem;
-    color: #e6e6e6;
     background-color: #202020;
-    border: 1px solid #282828;
-    padding: 2px;
     border-radius: 5px;
+    border: 1px solid #282828;
     box-sizing: content-box;
+    color: #e6e6e6;
+    font-size: 0.8rem;
     height: 20px;
     line-height: 20px;
+    padding: 2px;
 }
 
-#priority .placeholder { display: none; }
+#priority .placeholder {
+    display: none;
+}
 
 .add-task-buttons {
     display: flex;
-    justify-content: right;
     gap: 20px;
+    justify-content: right;
 }
 
 .cancel-button,
 .add-task-button,
 .add-project-button,
 .cancel-project-button {
-    padding: 10px;
     border-radius: 5px;
     border: none;
+    padding: 10px;
 }
 
 .add-task-button,
@@ -193,54 +304,9 @@ input {
     cursor: pointer;
 }
 
-.add-task-minimized {
-    display: flex;
-    align-items: center;
-    height: 30px;
-    font-size: 0.8rem;
-}
-
-.add-task-minimized .icon {
-    width: 40px;
-}
-
-.add-task-minimized .label, .add-project .label {
-    color: #a8a8a8;
-}
-
-.material-icons.red { color: #9f2422; }
-
-.project-header {
-    margin-bottom: 20px;
-}
-
-.project {
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-    width: 95%;
-    padding: 10px;
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-}
-
-.project .delete-icon {
-    margin-left: auto;
-    display: none;
-}
-
-.project:hover .delete-icon {
-    display: flex;
-    align-items: center;
-}
-
-.delete-icon:hover {
-    cursor: pointer;
-}
-
-.project:hover {
-    background-color: #303030;
+.add-task-minimized:hover .material-icons.red,
+.add-project:hover .material-icons.red {
+    color: #dc322f;
 }
 
 .add-task-minimized:hover .label,
@@ -248,65 +314,31 @@ input {
     color: white;
 }
 
-.add-task-minimized:hover .material-icons.red,
-.add-project:hover .material-icons.red {
-    color: #dc322f;
-}
-
-.footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.add-project {
-    display: flex;
-    align-items: center;
-    font-size: 0.8rem;
-    margin-top: 20px;
-}
-
-.add-project .icon {
-    width: 30px;
-}
-
 .add-project-form {
+    background-color: rgba(0, 0, 0, 0.6);
     display: none;
+    height: 100vh;
+    left: 0;
     padding: 20px;
     position: fixed;
-    left: 0;
     top: 0;
     width: 100vw;
-    height: 100vh;
-
-    background-color: rgba(0, 0, 0, 0.6)
 }
 
 .add-project-form form {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20%;
-
+    background-color: #131313;
+    border-radius: 4px;
+    border: 1px solid #7e7e7e;
     display: flex;
     flex-direction: column;
     gap: 15px;
-
-    border: 1px solid #7e7e7e;
-    border-radius: 4px;
+    margin: 20% auto 0;
+    max-width: 400px;
     padding: 20px;
-
-    background-color: #131313;
 }
 
 .add-project-form p {
     font-size: 1.3rem;
-}
-
-.form-row {
-    display: flex;
-    align-items: center;
 }
 
 .add-project-form label {
@@ -314,35 +346,18 @@ input {
 }
 
 .add-project-form input[type="text"] {
-    width: 300px;
-    padding: 8px;
     border-radius: 8px;
+    padding: 8px;
+    width: 300px;
+}
+
+.form-row {
+    align-items: center;
+    display: flex;
 }
 
 .add-project-buttons {
     display: flex;
-    justify-content: right;
     gap: 15px;
-}
-
-.task-id { display: none }
-
-.task-radio-icon.p1 {
-    color: red;
-}
-
-.task-radio-icon.p2 {
-    color: orange;
-}
-
-.task-radio-icon.p3 {
-    color: rgb(0, 115, 255);
-}
-
-.task-delete-icon:hover {
-    color: #9f2422;
-}
-
-.task-radio-icon:hover {
-    color: #16a200;
+    justify-content: right;
 }
