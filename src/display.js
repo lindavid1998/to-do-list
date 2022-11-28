@@ -96,6 +96,8 @@ export function updateTasks() {
 
     // iterate through task list 
     let tasks = project.tasks
+
+    // if task list is not empty
     if (tasks) {
         for (let i = 0; i < tasks.length; i++) {
             // if task is incomplete, append to DOM
@@ -110,25 +112,16 @@ export function updateTasks() {
 }
 
 function createTaskDiv(task) {
-    let icon = document.createElement('span')
-    icon.classList.add('material-icons')
-    icon.classList.add('task-radio-icon')
-    icon.textContent = 'radio_button_unchecked'
-    icon.addEventListener('click', completeTask)
-
     let checkbox = createDiv('checkbox')
+    let icon = createTaskRadioButton(task)
     checkbox.append(icon)
 
     let title = createDiv('title', task.title)
     let taskID = createDiv('task-id', task.id)
     let due = createDiv('due-date', task.dueDate)
 
-    let closeIcon = document.createElement('span')
-    closeIcon.classList.add('material-icons')
-    closeIcon.classList.add('task-delete-icon')
-    closeIcon.textContent = 'close'
-
     let del = createDiv('delete')
+    let closeIcon = createTaskDeleteButton()
     del.appendChild(closeIcon)
     del.addEventListener('click', removeTask)
 
@@ -142,24 +135,38 @@ function createTaskDiv(task) {
     return element
 }
 
-function removeTask(e) {
-    // read task ID
-    let taskID = getTaskID(e)
+function createTaskRadioButton(task) {
+    let element = document.createElement('span')
+    element.classList.add('material-icons')
+    element.classList.add('task-radio-icon')
+    element.classList.add(task.priority)
+    element.textContent = 'radio_button_unchecked'
+    element.addEventListener('click', completeTask)
 
-    // remove task from project 
+    return element
+}
+
+function createTaskDeleteButton() {
+    let element = document.createElement('span')
+    element.classList.add('material-icons')
+    element.classList.add('md-18')
+    element.classList.add('task-delete-icon')
+    element.textContent = 'close'
+
+    return element
+}
+
+function removeTask(e) {
+    let taskID = getTaskID(e)
     getActiveProject().removeTask(taskID)
 
     updateTasks()
 }
 
 function completeTask(e) {
-    // read task ID
     let taskID = getTaskID(e)
 
-    // access task inside active project
     let index = getActiveProject().tasks.map(task => task.id).indexOf(taskID)
-
-    // set complete to true
     getActiveProject().tasks[index].toggleComplete()
 
     updateTasks()

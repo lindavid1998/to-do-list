@@ -27,6 +27,10 @@ input:focus, textarea:focus {
     outline: none;
 }
 
+input {
+    all: unset;
+}
+
 .content {
     height: 100vh;
     display: grid;
@@ -119,8 +123,6 @@ input:focus, textarea:focus {
 }
 
 .user-input {
-    display: flex;
-    flex-direction: column;
     border: 1px solid #282828;
     border-radius: 5px;
     padding: 10px;
@@ -128,19 +130,31 @@ input:focus, textarea:focus {
 }
 
 #task-title, input[type="text"] {
+    display: block;
     background-color:#202020;
     border: none;
     resize: none;
 }
 
-input[type="date"] {
+.additional-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+#priority, input[type="date"] {
+    font-size: 0.8rem;
     color: #e6e6e6;
     background-color: #202020;
     border: 1px solid #282828;
     padding: 2px;
     border-radius: 5px;
-    width: 120px;
+    box-sizing: content-box;
+    height: 20px;
+    line-height: 20px;
 }
+
+#priority .placeholder { display: none; }
 
 .add-task-buttons {
     display: flex;
@@ -313,10 +327,22 @@ input[type="date"] {
 
 .task-id { display: none }
 
-.task-radio-icon:hover {
-    color: #16a200;
+.task-radio-icon.p1 {
+    color: red;
+}
+
+.task-radio-icon.p2 {
+    color: orange;
+}
+
+.task-radio-icon.p3 {
+    color: rgb(0, 115, 255);
 }
 
 .task-delete-icon:hover {
     color: #9f2422;
+}
+
+.task-radio-icon:hover {
+    color: #16a200;
 }

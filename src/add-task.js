@@ -10,22 +10,61 @@ export function createDiv(className, text = '') {
     return element
 }
 
-function createInputField() {
+function createUserInputField() {
+    let additionalInfo = createDiv('additional-info')
+    additionalInfo.appendChild(createDateField())
+    additionalInfo.appendChild(createPriorityField())
+
+    let userInput = createDiv('user-input')
+    userInput.appendChild(createTextArea())
+    userInput.appendChild(additionalInfo)
+
+    return userInput
+}
+
+function createTextArea() {
     let textarea = document.createElement('textarea');
     textarea.setAttribute('name', 'task-title');
-    textarea.setAttribute('cols', '30');
+    textarea.setAttribute('cols', '70');
     textarea.setAttribute('rows', '5');
     textarea.setAttribute('id', 'task-title');
+    
+    return textarea
+}
 
-    let input = document.createElement('input');
-    input.setAttribute('type', 'date');
-    input.setAttribute('id', 'due-date')
+function createDateField() {
+    let dateField = document.createElement('input');
+    dateField.setAttribute('type', 'date');
+    dateField.setAttribute('id', 'due-date')
+    return dateField
+}
 
-    let inputField = createDiv('user-input');
-    inputField.append(textarea);
-    inputField.append(input);
+function createPriorityField() {
+    let select = document.createElement('select')
+    select.setAttribute('id', 'priority')
 
-    return inputField
+    let options = [
+        { value: 'p4', text: 'Priority' },
+        { value: 'p4', text: 'P4 (default)' },
+        { value: 'p3', text: 'P3' },
+        { value: 'p2', text: 'P2' },
+        { value: 'p1', text: 'P1' }
+    ]
+
+    for (let i = 0; i < options.length; i++) {
+        let option = document.createElement('option')
+        option.setAttribute('value', options[i].value)
+        option.textContent = options[i].text
+
+        if (i == 0) {
+            option.setAttribute('class', 'placeholder')
+            option.setAttribute('disabled', 'true')
+            option.setAttribute('selected', 'selected')
+        }
+        select.appendChild(option)
+    }
+
+    return select
 }
 
 function createButtons() {
@@ -52,8 +91,12 @@ export function showAddTask() {
     document.querySelector('.add-task-minimized').style.display = 'none';
 
     let element = createDiv('add-task-detailed');
-    element.appendChild(createInputField());
-    element.appendChild(createButtons());
+    
+    let userInput = createUserInputField();
+    let buttons = createButtons();
+
+    element.appendChild(userInput);
+    element.appendChild(buttons);
 
     document.querySelector('.incomplete').appendChild(element);
 }
@@ -64,11 +107,13 @@ function hideAddTask() {
 }
  
 function addTaskClickHandler() {
-    // read user data 
+    // read user input 
     let taskName = document.querySelector('#task-title').value;
-    let taskDueDate = document.querySelector('#due-date').value;
-    if (taskDueDate == '') {
-        taskDueDate = 'No date'
+    let dueDate = document.querySelector('#due-date').value;
+    let priority = document.querySelector('#priority').value;
+
+    if (dueDate == '') {
+        dueDate = 'No date'
     }
 
     // alert user if task name is empty
@@ -78,7 +123,7 @@ function addTaskClickHandler() {
     }
 
     // create new Task
-    let task = new Task(taskName, taskDueDate);
+    let task = new Task(taskName, dueDate, priority);
 
     // add new task to current project
     getActiveProject().addTask(task);
@@ -86,7 +131,8 @@ function addTaskClickHandler() {
     // refresh task list
     updateTasks();
 
-    // clear inputs
+    // clear user input
     document.querySelector('#task-title').value = ''
     document.querySelector('#due-date').value = ''
+    document.querySelector('#priority .placeholder').selected = true;
 }
