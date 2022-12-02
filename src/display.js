@@ -1,6 +1,7 @@
 import { createDiv } from "./add-task.js"
 import { getActiveProject, ProjectList } from "./ProjectClass.js";
 import { format } from 'date-fns'
+import { loadLocalStorage, saveToLocalStorage } from './index.js'
 
 export function updateScreen() {
    updateProjects()
@@ -13,8 +14,10 @@ export function updateProjects() {
         project => project.remove()
     );
 
+    loadLocalStorage() 
+
     // get list of projects
-    let projects = ProjectList.getProjects()
+    let projects = ProjectList.projects
 
     // iterate through each project and append to DOM
     for (let i = 0; i < projects.length; i++) {
@@ -30,8 +33,7 @@ function createProjectDiv(projectName) {
     let name = createDiv('title', projectName)
     
     let closeIcon = document.createElement('span')
-    closeIcon.classList.add('class', 'material-icons')
-    closeIcon.classList.add('class', 'md-12')
+    closeIcon.classList.add('material-icons', 'md-12', 'close')
     closeIcon.textContent = 'close'
     closeIcon.addEventListener('click', removeProject)
 
@@ -39,20 +41,27 @@ function createProjectDiv(projectName) {
     iconContainer.appendChild(closeIcon)
 
     let element = createDiv('project')
-    element.appendChild(name)
-    element.appendChild(iconContainer)
+    element.append(name, iconContainer)
     element.addEventListener('click', setActiveProject)
     
     return element
 }
 
 function setActiveProject(e) {
-    if (e.target === this) {
+    if (!e.target.className.includes('close')) {
         getActiveProject().toggleActive()
-        let next = e.target.querySelector('.title').textContent
+
+        let next;
+        if (e.target.className.includes('project')) {
+            next = e.target.querySelector('.title').textContent
+        } else {
+            next = e.target.textContent
+        }
         
-        let index = ProjectList.getProjects().map(proj => proj.name).indexOf(next)
-        ProjectList.getProjects()[index].active = true
+        let index = ProjectList.projects.map(proj => proj.name).indexOf(next)
+        ProjectList.projects[index].active = true
+
+        saveToLocalStorage()
         
         updateTasks()
     }
@@ -73,9 +82,12 @@ function removeProject(e) {
     ProjectList.remove(projectName)
     
     // set inbox as the active project
-    let projects = ProjectList.getProjects()
+    let projects = ProjectList.projects
     let index = projects.map(proj => proj.name).indexOf('Inbox')
     projects[index].active = true
+
+     // update local storage
+     saveToLocalStorage()
 
     updateScreen()
 }
@@ -86,12 +98,14 @@ export function updateTasks() {
         task => task.remove()
     );
 
+    loadLocalStorage()
+
     // update project title on DOM
     let projectTitle = document.querySelector('.project-title');
     projectTitle.textContent = getActiveProject().name
 
     // get task list of current project
-    let project = ProjectList.getProjects().find(
+    let project = ProjectList.projects.find(
         project => project.name == getActiveProject().name
     );
     let tasks = project.tasks
@@ -176,6 +190,9 @@ function removeTask(e) {
     let taskID = getTaskID(e)
     getActiveProject().removeTask(taskID)
 
+    // update local storage
+    saveToLocalStorage()
+
     updateTasks()
 }
 
@@ -184,6 +201,9 @@ function completeTask(e) {
 
     let index = getActiveProject().tasks.map(task => task.id).indexOf(taskID)
     getActiveProject().tasks[index].toggleComplete()
+
+    // update local storage
+    saveToLocalStorage()
 
     updateTasks()
 }

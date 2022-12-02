@@ -1,6 +1,7 @@
 import { Task } from './TaskClass.js'
 import { updateTasks } from './display.js'
 import { getActiveProject } from './ProjectClass.js';
+import { saveToLocalStorage } from './index.js'
 
 export function createDiv(className, text = '') {
     let element = document.createElement('div');
@@ -119,10 +120,13 @@ function addTaskClickHandler() {
     }
 
     // create new Task
-    let task = new Task(taskName, dueDate, priority);
+    let task = new Task(taskName, dueDate, false, priority);
 
     // add new task to current project
     getActiveProject().addTask(task);
+
+    // update local storage
+    saveToLocalStorage();
 
     // refresh task list
     updateTasks();

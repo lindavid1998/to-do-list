@@ -1,13 +1,13 @@
 import { formatDistance } from 'date-fns'
 
-let taskCounter = 0;
+let counter = 0;
 
 export class Task {
-    constructor(title, dueDate, priority) {
+    constructor(title, date, isComplete = false, priority, id = counter++) {
         this.title = title;
-        this.dueDate = dueDate;
-        this.id = taskCounter++;
-        this.isComplete = false;
+        this.dueDate = date;
+        this.id = id;
+        this.isComplete = isComplete;
         this.priority = priority;
     }
 

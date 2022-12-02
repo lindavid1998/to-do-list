@@ -1,5 +1,6 @@
 import { Project, ProjectList } from './ProjectClass.js'
 import { updateProjects } from './display.js'
+import { saveToLocalStorage } from './index.js'
 
 export function openAddProjectForm() {
     document.querySelector('.add-project-form').style.display = 'block';
@@ -20,7 +21,7 @@ export function addProjectClickHandler() {
     }
 
     // alert if project name is already taken
-    let projects = ProjectList.getProjects()
+    let projects = ProjectList.projects
     if (projects.find(project => project.name == name)) {
         alert('Project name already taken')
         return
@@ -28,6 +29,9 @@ export function addProjectClickHandler() {
 
     // add to project list
     ProjectList.add(new Project(name))
+
+    // save to local storage
+    saveToLocalStorage()
 
     // reset and close form
     document.querySelector('#name').value = ''

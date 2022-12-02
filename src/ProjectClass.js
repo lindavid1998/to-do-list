@@ -1,33 +1,31 @@
-const ProjectList = (() => {
-    let projects = [];
+export const ProjectList = (() => {
+    var output = {}
 
-    const add = (project) => {
-        projects.push(project);
+    output.projects = []
+
+    output.add = function(project) {
+        output.projects.push(project)
     }
 
-    const remove = (projectName) => {
-        projects = projects.filter(project => project.name != projectName);
+    output.remove = function(name) {
+        output.projects = output.projects.filter(
+            project => project.name != name
+        );
     }
 
-    const getProjects = () => projects
-
-    return {
-        add,
-        remove,
-        getProjects
-    }
+    return output
 
 })();
 
-class Project {
-    constructor(name) {
+export class Project {
+    constructor(name, tasks = [], active = false) {
         this.name = name;
-        this.tasks = []; //array of objects
-        this.active = false;
+        this.tasks = tasks; //array of Task objects
+        this.active = active;
     }
 
     addTask(task) {
-        // task is instance of class Task
+        // task is of type Task
         this.tasks.push(task);
     }
     
@@ -40,13 +38,7 @@ class Project {
     }
 }
 
-function getActiveProject() {
-    let projects = ProjectList.getProjects()
+export function getActiveProject() {
+    let projects = ProjectList.projects
     return projects.find(proj => proj.active)
-}
-
-export {
-    ProjectList,
-    Project,
-    getActiveProject
 }

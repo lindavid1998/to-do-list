@@ -260,6 +260,10 @@ input {
     resize: none;
 }
 
+textarea#task-title {
+    width: 100%;
+}
+
 .additional-info {
     align-items: center;
     display: flex;
