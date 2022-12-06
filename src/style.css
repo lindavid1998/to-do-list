@@ -43,7 +43,7 @@
     color: #9f2422;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
 }
 
@@ -225,7 +225,12 @@ input {
     color: #16a200;
 }
 
-.due-date-view {
+.view-options {
+    display: flex;
+    gap: 10px;
+}
+
+.view-option {
     align-items: center;
     border-radius: 5px;
     display: flex;
@@ -233,10 +238,10 @@ input {
     gap: 10px;
     margin-bottom: 10px;
     padding: 8px;
-    width: 100px;
+    width: fit-content; 
 }
 
-.due-date-view:hover {
+.view-option:hover {
     background-color: #303030;
 }
 
@@ -270,7 +275,7 @@ textarea#task-title {
     gap: 7px;
 }
 
-#priority, input[type="date"] {
+#priority, input[type="date"], #sort {
     background-color: #202020;
     border-radius: 5px;
     border: 1px solid #282828;

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="../src/style.css"> -->
 </head>
 <body>
     <div class="content">
@@ -39,11 +38,29 @@
 
         <div class="tasks">
             <div class="project-title">Inbox</div>
-            <div class="due-date-view">
-                <div class="view-label">View:</div>
-                <span class="material-icons md-18 active-view">today</span>
-                <!-- <span class="material-icons md-18">hourglass_empty</span> -->
+
+            <div class="view-options">
+                <div class="view-option due-date-view">
+                    <div class="view-label">View:</div>
+                    <span class="date material-icons md-18 active-view">today</span>
+                </div>
+
+                <div class="view-option sort">
+                    <label for="sort">Sort By:</label>
+                    <select id="sort" name="sort">
+                        <option value="none" selected>None</option>
+                        <option value="date">Date</option>
+                        <option value="priority">Priority</option>
+                        <option value="name">Name</option>
+                      </select>
+                </div>
+
+                <div class="view-option order-view">
+                    <div class="view-label">Order:</div>
+                    <span class="order material-icons md-18 active-view">keyboard_double_arrow_up</span>
+                </div>
             </div>
+            
             <div class="incomplete">
                 <div class="add-task-minimized">
                     <div class="icon">

@@ -1,5 +1,5 @@
 import { createDiv } from "./add-task.js"
-import { getActiveProject, ProjectList } from "./ProjectClass.js";
+import { getTasksOfActiveProject, getActiveProject, ProjectList } from "./ProjectClass.js";
 import { format } from 'date-fns'
 import { loadLocalStorage, saveToLocalStorage } from './index.js'
 
@@ -86,8 +86,8 @@ function removeProject(e) {
     let index = projects.map(proj => proj.name).indexOf('Inbox')
     projects[index].active = true
 
-     // update local storage
-     saveToLocalStorage()
+    // update local storage
+    saveToLocalStorage()
 
     updateScreen()
 }
@@ -104,11 +104,7 @@ export function updateTasks() {
     let projectTitle = document.querySelector('.project-title');
     projectTitle.textContent = getActiveProject().name
 
-    // get task list of current project
-    let project = ProjectList.projects.find(
-        project => project.name == getActiveProject().name
-    );
-    let tasks = project.tasks
+    let tasks = getTasksOfActiveProject()
 
     // if task list is not empty
     if (tasks) {
@@ -126,7 +122,7 @@ export function updateTasks() {
 }
 
 export function changeDueDateView() {
-    let view = document.querySelector('.active-view')
+    let view = document.querySelector('.date.active-view')
     
     // toggle icon
     if (view.textContent == 'today') {

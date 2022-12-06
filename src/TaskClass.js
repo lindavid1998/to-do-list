@@ -17,15 +17,9 @@ export class Task {
 
     set dueDate(value) {
         if (value == '') {
-            this._dueDate = '';
+            this._dueDate = value
         } else {
-            // get date input in UTC
-            let utcDate = new Date(value);
-
-            // convert to local time
-            let localDate = utcDate.getTime() + utcDate.getTimezoneOffset() * 60000;
-
-            this._dueDate = new Date(localDate);
+            this._dueDate = new Date(value)
         }
     }
 

@@ -42,3 +42,11 @@ export function getActiveProject() {
     let projects = ProjectList.projects
     return projects.find(proj => proj.active)
 }
+
+export function getTasksOfActiveProject() {
+    let project = ProjectList.projects.find(
+        project => project.name == getActiveProject().name
+    );
+    
+    return project.tasks
+}

@@ -4,9 +4,10 @@ import { Task } from './TaskClass'
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
 import { updateScreen, changeDueDateView } from './display.js';
+import { changeOrder, sortTasks } from './sort-tasks';
 
 export function loadLocalStorage() {
-    // reads local storage and writes to ProjectList.projects
+    // reads localStorage and writes to ProjectList.projects
 
     // clear ProjectList.projects
     ProjectList.projects = []
@@ -59,9 +60,15 @@ if (!localStorage['projects']) {
 // initial loading
 updateScreen()
 
-// add event listeners
+// Add tasks click handler
 document.querySelector('.add-task-minimized').addEventListener('click', showAddTask)
+
+// Add projects click handlers
 document.querySelector('.add-project').addEventListener('click', openAddProjectForm)
 document.querySelector('.cancel-project-button').addEventListener('click', closeAddProjectForm)
 document.querySelector('.add-project-button').addEventListener('click', addProjectClickHandler)
+
+// View options
 document.querySelector('.due-date-view').addEventListener('click', changeDueDateView)
+document.querySelector('.order-view').addEventListener('click', changeOrder)
+document.querySelector('#sort').addEventListener('change', sortTasks)

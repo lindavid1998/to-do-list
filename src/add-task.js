@@ -113,6 +113,12 @@ function addTaskClickHandler() {
     let dueDate = document.querySelector('#due-date').value;
     let priority = document.querySelector('#priority').value;
 
+    // convert date input to local time
+    if (dueDate != '') {
+        let utcDate = new Date(dueDate)
+        dueDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)
+    }
+    
     // alert user if task name is empty
     if (!taskName) {
         alert('Task name cannot be empty')
