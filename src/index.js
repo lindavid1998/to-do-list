@@ -4,7 +4,7 @@ import { Task } from './TaskClass'
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
 import { updateScreen, changeDueDateView } from './display.js';
-import { changeOrder, sortTasks } from './sort-tasks';
+import { changeOrder, sortTasks } from './sort-tasks.js';
 
 export function loadLocalStorage() {
     // reads localStorage and writes to ProjectList.projects
