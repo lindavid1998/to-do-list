@@ -9,7 +9,12 @@
 </head>
 <body>
     <div class="content">
-        <div class="header">To Do</div>
+        <div class="header">
+            To Do
+            <span>
+                Heavily inspired by <a href="https://todoist.com">Todoist!</a>
+            </span>
+        </div>
         <div class="projects">
             <div class="project-header">Projects</div>
 
@@ -28,10 +33,14 @@
                         <input type="text" id="name" required>
                     </div>
                     <div class="add-project-buttons">
-                        <button class="cancel-project-button" type="button">Cancel</button>
-                        <button class="add-project-button" type="button">Add</button>
+                        <button class="button cancel-project" type="button">Cancel</button>
+                        <button class="button add-project" type="button">Add</button>
                     </div>
                 </form>
+            </div>
+
+            <div class="clear-all-button">
+                <button class="button clear-all" type="button">Reset all</button>
             </div>
 
         </div>
