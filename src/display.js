@@ -2,6 +2,7 @@ import { createDiv } from "./add-task.js"
 import { getTasksOfActiveProject, getActiveProject, ProjectList } from "./ProjectClass.js";
 import { format } from 'date-fns'
 import { loadLocalStorage, saveToLocalStorage } from './index.js'
+import { sortTasksByDueDate, sortTasksByName, sortTasksByPriority } from './sort-tasks.js'
 
 export function updateScreen() {
    updateProjects()
@@ -207,4 +208,53 @@ function completeTask(e) {
 function getTaskID(e) {
     let parent = e.target.parentNode.parentNode
     return Number(parent.querySelector('.task-id').textContent)
+}
+
+export function sortTasks() {
+    // read dropdown
+    let sortBy = document.querySelector('#sort').value
+    if (sortBy == 'none') return
+
+    // read order
+    let order;
+    let element = document.querySelector('.order');
+    if (element.textContent == 'keyboard_double_arrow_up') {
+        order = 1; // ascending
+    } else {
+        order = -1; // descending
+    }
+
+    // get task list of active project
+    let tasks = getTasksOfActiveProject()
+
+    // sort tasks based on input
+    switch (sortBy) {
+        case 'date':
+            sortTasksByDueDate(tasks, order)
+            break;
+        case 'priority':
+            sortTasksByPriority(tasks, order)
+            break;
+        case 'name':
+            sortTasksByName(tasks, order)
+            break;
+    }
+
+    // update local storage with sorted task list 
+    saveToLocalStorage()
+
+    // update screen
+    updateTasks()
+}
+
+export function changeSortOrder(e) {
+    // update DOM
+    let order = document.querySelector('.order')
+    if (order.textContent == 'keyboard_double_arrow_down') {
+        order.textContent = 'keyboard_double_arrow_up'
+    } else {
+        order.textContent = 'keyboard_double_arrow_down'
+    }
+
+    sortTasks()
 }

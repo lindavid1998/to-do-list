@@ -1,7 +1,3 @@
-import { saveToLocalStorage } from "./index.js";
-import { getTasksOfActiveProject } from "./ProjectClass.js";
-import { updateTasks } from "./display.js"
-
 function sortTasksByName(tasks, order) {
     // sorts Task array by Task.title
     // input: array of Task objects, order: 1 -> asc, -1 -> desc
@@ -46,51 +42,8 @@ function sortTasksByDueDate(tasks, order) {
     })
 }
 
-export function sortTasks() {
-    // read dropdown
-    let sortBy = document.querySelector('#sort').value
-    if (sortBy == 'none') return
-
-    // read order
-    let order;
-    let element = document.querySelector('.order');
-    if (element.textContent == 'keyboard_double_arrow_up') {
-        order = 1; // ascending
-    } else {
-        order = -1; // descending
-    }
-
-    // get task list of active project
-    let tasks = getTasksOfActiveProject()
-
-    // sort tasks based on input
-    switch (sortBy) {
-        case 'date':
-            sortTasksByDueDate(tasks, order)
-            break;
-        case 'priority':
-            sortTasksByPriority(tasks, order)
-            break;
-        case 'name':
-            sortTasksByName(tasks, order)
-            break;
-    }
-
-    // update local storage with sorted task list 
-    saveToLocalStorage()
-
-    // update screen
-    updateTasks()
-}
-
-export function changeOrder(e) {
-    // update DOM
-    let order = document.querySelector('.order')
-    if (order.textContent == 'keyboard_double_arrow_down') {
-        order.textContent = 'keyboard_double_arrow_up'
-    } else {
-        order.textContent = 'keyboard_double_arrow_down'
-    }
-
-    sortTasks()
+export {
+    sortTasksByDueDate,
+    sortTasksByName,
+    sortTasksByPriority
 }

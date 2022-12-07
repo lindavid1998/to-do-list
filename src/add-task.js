@@ -70,20 +70,19 @@ function createPriorityField() {
 
 function createButtons() {
     let addButton = document.createElement('button');
-    addButton.setAttribute('class', 'add-task-button');
+    addButton.classList.add('button', 'add-task');
     addButton.textContent = 'Add task';
 
     addButton.addEventListener('click', addTaskClickHandler);
 
     let cancelButton = document.createElement('button');
-    cancelButton.setAttribute('class', 'cancel-button');
+    cancelButton.classList.add('button', 'cancel-task')
     cancelButton.textContent = 'Cancel';
 
     cancelButton.addEventListener('click', hideAddTask);
 
     let buttons = createDiv('add-task-buttons')
-    buttons.appendChild(cancelButton);
-    buttons.appendChild(addButton);
+    buttons.append(cancelButton, addButton);
 
     return buttons
 }
@@ -95,9 +94,7 @@ export function showAddTask() {
     
     let userInput = createUserInputField();
     let buttons = createButtons();
-
-    element.appendChild(userInput);
-    element.appendChild(buttons);
+    element.append(userInput, buttons);
 
     document.querySelector('.incomplete').appendChild(element);
 }

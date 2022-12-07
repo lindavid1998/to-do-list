@@ -3,8 +3,7 @@ import { Project, ProjectList } from './ProjectClass.js'
 import { Task } from './TaskClass'
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
-import { updateScreen, changeDueDateView } from './display.js';
-import { changeOrder, sortTasks } from './sort-tasks.js';
+import { updateScreen, changeDueDateView, changeSortOrder, sortTasks } from './display.js';
 
 export function loadLocalStorage() {
     // reads localStorage and writes to ProjectList.projects
@@ -65,10 +64,18 @@ document.querySelector('.add-task-minimized').addEventListener('click', showAddT
 
 // Add projects click handlers
 document.querySelector('.add-project').addEventListener('click', openAddProjectForm)
-document.querySelector('.cancel-project-button').addEventListener('click', closeAddProjectForm)
-document.querySelector('.add-project-button').addEventListener('click', addProjectClickHandler)
+document.querySelector('.button.cancel-project').addEventListener('click', closeAddProjectForm)
+document.querySelector('.button.add-project').addEventListener('click', addProjectClickHandler)
 
 // View options
 document.querySelector('.due-date-view').addEventListener('click', changeDueDateView)
-document.querySelector('.order-view').addEventListener('click', changeOrder)
+document.querySelector('.order-view').addEventListener('click', changeSortOrder)
 document.querySelector('#sort').addEventListener('change', sortTasks)
+
+// Reset session
+document.querySelector('.button.clear-all').addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear all tasks and projects?')) {
+        localStorage.removeItem('projects');
+        window.location.reload();
+    }
+})

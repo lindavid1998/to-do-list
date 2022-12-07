@@ -56,7 +56,7 @@ input {
 .content {
     display: grid;
     grid-template-columns: 220px 1fr;
-    grid-template-rows: 80px 1fr 40px;
+    grid-template-rows: 60px 1fr 40px;
     height: 100vh;
 }
 
@@ -69,6 +69,12 @@ input {
     grid-column: 1 / -1;
     grid-row: 1;
     padding: 20px;
+}
+
+.header span {
+    font-size: 0.8rem;
+    margin-left: auto;
+    font-weight: normal;
 }
 
 .footer {
@@ -88,6 +94,9 @@ input {
     grid-column: 1;
     grid-row: 2;
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .project-title {
@@ -291,39 +300,44 @@ textarea#task-title {
     display: none;
 }
 
-.add-task-buttons {
+.add-task-buttons,
+.add-project-buttons {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     justify-content: right;
 }
 
-.cancel-button,
-.add-task-button,
-.add-project-button,
-.cancel-project-button {
+.button {
     border-radius: 5px;
     border: none;
     padding: 10px;
+    margin: 0;
 }
 
-.add-task-button,
-.add-project-button {
+.clear-all-button {
+    margin-top: auto;
+}
+
+.button.add-project,
+.button.add-task,
+.button.clear-all {
     background-color: #de4c4a;
 }
 
-.cancel-button,
-.cancel-project-button {
+.button.cancel-project,
+.button.cancel-task {
     background-color:#282828;
 }
 
-.add-task-button:hover,
-.add-project-button:hover {
+.button.add-project:hover,
+.button.add-task:hover,
+.button.clear-all:hover {
     background-color: #dc322f;
     cursor: pointer;
 }
 
-.cancel-button:hover,
-.cancel-project-button:hover {
+.button.cancel-project:hover,
+.button.cancel-task:hover {
     background-color: #7e7e7e;
     cursor: pointer;
 }
@@ -378,10 +392,4 @@ textarea#task-title {
 .form-row {
     align-items: center;
     display: flex;
-}
-
-.add-project-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: right;
 }
