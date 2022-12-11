@@ -1,81 +1,50 @@
 import './style.css';
-import { Project, ProjectList } from './ProjectClass.js'
-import { Task } from './TaskClass'
-import { showAddTask } from './add-task.js';
-import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
-import { updateScreen, changeDueDateView, changeSortOrder, sortTasks, toggleCompletedTaskView } from './display.js';
+import showAddTask from './add-task';
+import { Project, ProjectList } from './ProjectClass';
+import { saveToLocalStorage } from './local-storage';
 
-export function loadLocalStorage() {
-    // reads localStorage and writes to ProjectList.projects
+import {
+  openAddProjectForm,
+  closeAddProjectForm,
+  addProjectClickHandler,
+} from './add-project';
 
-    // clear ProjectList.projects
-    ProjectList.projects = []
-
-    // parse JSON string
-    let projects = JSON.parse(localStorage['projects'])
-
-    // for each project
-    for (let i = 0; i < projects.length; i++) {
-        // get project tasks as raw object
-        let rawTasks = projects[i].tasks 
-        let constructedTasks = []
-
-        // for each task in project
-        for (let j = 0; j < rawTasks.length; j++) {
-            // construct Task object
-            let task = new Task(
-                rawTasks[j]._title,
-                rawTasks[j]._dueDate,
-                rawTasks[j].isComplete,
-                rawTasks[j]._priority,
-                rawTasks[j].id
-            )
-
-            // save to tasks array
-            constructedTasks.push(task)
-        }
-
-        // construct Project object
-        let project = new Project(projects[i].name, constructedTasks, projects[i].active) 
-
-        // save to ProjectList.projects
-        ProjectList.add(project)
-
-    }
-}
-
-export function saveToLocalStorage() {
-    localStorage['projects'] = JSON.stringify(ProjectList.projects)
-}
+import {
+  updateScreen,
+  changeDueDateView,
+  changeSortOrder,
+  sortTasks,
+  toggleCompletedTaskView,
+} from './display';
 
 // initialize local storage
-if (!localStorage['projects']) {
-    let inbox = new Project('Inbox', [], true);
-    ProjectList.add(inbox); 
-    saveToLocalStorage()
-} 
+if (!localStorage.projects) {
+  const inbox = new Project('Inbox', [], true);
+  ProjectList.add(inbox);
+  saveToLocalStorage();
+}
 
 // initial loading
-updateScreen()
+updateScreen();
 
 // Add tasks click handler
-document.querySelector('.add-task-minimized').addEventListener('click', showAddTask)
+document.querySelector('.add-task-minimized').addEventListener('click', showAddTask);
 
 // Add projects click handlers
-document.querySelector('.add-project').addEventListener('click', openAddProjectForm)
-document.querySelector('.button.cancel-project').addEventListener('click', closeAddProjectForm)
-document.querySelector('.button.add-project').addEventListener('click', addProjectClickHandler)
+document.querySelector('.add-project').addEventListener('click', openAddProjectForm);
+document.querySelector('.button.cancel-project').addEventListener('click', closeAddProjectForm);
+document.querySelector('.button.add-project').addEventListener('click', addProjectClickHandler);
 
 // View options
-document.querySelector('.due-date-view').addEventListener('click', changeDueDateView)
-document.querySelector('.order-view').addEventListener('click', changeSortOrder)
-document.querySelector('#sort').addEventListener('change', sortTasks)
-document.querySelector('.view-completed-tasks').addEventListener('click', toggleCompletedTaskView)
+document.querySelector('.due-date-view').addEventListener('click', changeDueDateView);
+document.querySelector('.order-view').addEventListener('click', changeSortOrder);
+document.querySelector('#sort').addEventListener('change', sortTasks);
+document.querySelector('.view-completed-tasks').addEventListener('click', toggleCompletedTaskView);
 
 // Reset session
 document.querySelector('.button.clear-all').addEventListener('click', () => {
-    if (confirm('Are you sure you want to clear all tasks and projects?')) {
-        localStorage.removeItem('projects');
-        window.location.reload();
-    }
-})
+  if (confirm('Are you sure you want to clear all tasks and projects?')) {
+    localStorage.removeItem('projects');
+    window.location.reload();
+  }
+});

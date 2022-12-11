@@ -1,276 +1,275 @@
-import { createDiv } from "./add-task.js"
-import { getTasksOfActiveProject, getActiveProject, ProjectList } from "./ProjectClass.js";
-import { format } from 'date-fns'
-import { loadLocalStorage, saveToLocalStorage } from './index.js'
-import { sortTasksByDueDate, sortTasksByName, sortTasksByPriority } from './sort-tasks.js'
+import { format } from 'date-fns';
+import createDiv from './create-div';
+import { getTasksOfActiveProject, getActiveProject, ProjectList } from './ProjectClass';
+import { loadLocalStorage, saveToLocalStorage } from './local-storage';
+import { sortTasksByDueDate, sortTasksByName, sortTasksByPriority } from './sort-tasks';
 
 export function updateScreen() {
-   updateProjects()
-   updateTasks()
+  updateProjects();
+  updateTasks();
 }
 
 export function updateProjects() {
-    // clear DOM projects
-    document.querySelectorAll('.project').forEach(
-        project => project.remove()
-    );
+  // clear DOM projects
+  document.querySelectorAll('.project').forEach(
+    (project) => project.remove(),
+  );
 
-    loadLocalStorage() 
+  loadLocalStorage();
 
-    // get list of projects
-    let projects = ProjectList.projects
+  // get list of projects
+  const { projects } = ProjectList;
 
-    // iterate through each project and append to DOM
-    for (let i = 0; i < projects.length; i++) {
-        let element = createProjectDiv(projects[i].name);
-    
-        document.querySelector('.projects').insertBefore(
-            element, document.querySelector('.add-project')
-        );
-    }
+  // iterate through each project and append to DOM
+  for (let i = 0; i < projects.length; i++) {
+    const element = createProjectDiv(projects[i].name);
+
+    document.querySelector('.projects').insertBefore(element, document.querySelector('.add-project'));
+  }
 }
 
 function createProjectDiv(projectName) {
-    let name = createDiv('title', projectName)
-    
-    let closeIcon = document.createElement('span')
-    closeIcon.classList.add('material-icons', 'md-12', 'close')
-    closeIcon.textContent = 'close'
-    closeIcon.addEventListener('click', removeProject)
+  const name = createDiv('title', projectName);
 
-    let iconContainer = createDiv('delete-icon')
-    iconContainer.appendChild(closeIcon)
+  const closeIcon = document.createElement('span');
+  closeIcon.classList.add('material-icons', 'md-12', 'close');
+  closeIcon.textContent = 'close';
+  closeIcon.addEventListener('click', removeProject);
 
-    let element = createDiv('project')
-    element.append(name, iconContainer)
-    element.addEventListener('click', setActiveProject)
-    
-    return element
+  const iconContainer = createDiv('delete-icon');
+  iconContainer.appendChild(closeIcon);
+
+  const element = createDiv('project');
+  element.append(name, iconContainer);
+  element.addEventListener('click', setActiveProject);
+
+  return element;
 }
 
 function setActiveProject(e) {
-    if (!e.target.className.includes('close')) {
-        getActiveProject().toggleActive()
+  if (!e.target.className.includes('close')) {
+    getActiveProject().toggleActive();
 
-        let next;
-        if (e.target.className.includes('project')) {
-            next = e.target.querySelector('.title').textContent
-        } else {
-            next = e.target.textContent
-        }
-        
-        let index = ProjectList.projects.map(proj => proj.name).indexOf(next)
-        ProjectList.projects[index].active = true
-
-        saveToLocalStorage()
-        
-        updateTasks()
+    let next;
+    if (e.target.className.includes('project')) {
+      next = e.target.querySelector('.title').textContent;
+    } else {
+      next = e.target.textContent;
     }
+
+    const index = ProjectList.projects.map((proj) => proj.name).indexOf(next);
+    ProjectList.projects[index].active = true;
+
+    saveToLocalStorage();
+
+    updateTasks();
+  }
 }
 
 function removeProject(e) {
-    // read project name to remove
-    let parent = e.target.parentNode.parentNode
-    let projectName = parent.querySelector('.title').textContent
+  // read project name to remove
+  const parent = e.target.parentNode.parentNode;
+  const projectName = parent.querySelector('.title').textContent;
 
-    // alert if attempt to delete inbox
-    if (projectName == 'Inbox') {
-        alert('Cannot delete Inbox')
-        return
-    }
+  // alert if attempt to delete inbox
+  if (projectName == 'Inbox') {
+    alert('Cannot delete Inbox');
+    return;
+  }
 
-    // remove project from project list
-    ProjectList.remove(projectName)
-    
-    // set inbox as the active project
-    let projects = ProjectList.projects
-    let index = projects.map(proj => proj.name).indexOf('Inbox')
-    projects[index].active = true
+  // remove project from project list
+  ProjectList.remove(projectName);
 
-    // update local storage
-    saveToLocalStorage()
+  // set inbox as the active project
+  const { projects } = ProjectList;
+  const index = projects.map((proj) => proj.name).indexOf('Inbox');
+  projects[index].active = true;
 
-    updateScreen()
+  // update local storage
+  saveToLocalStorage();
+
+  updateScreen();
 }
 
 export function updateTasks() {
-    // clear DOM tasks
-    document.querySelectorAll('.task').forEach(
-        task => task.remove()
-    );
+  // clear DOM tasks
+  document.querySelectorAll('.task').forEach(
+    (task) => task.remove(),
+  );
 
-    loadLocalStorage()
+  loadLocalStorage();
 
-    // update project title on DOM
-    let projectTitle = document.querySelector('.project-title');
-    projectTitle.textContent = getActiveProject().name
+  // update project title on DOM
+  const projectTitle = document.querySelector('.project-title');
+  projectTitle.textContent = getActiveProject().name;
 
-    let tasks = getTasksOfActiveProject()
+  const tasks = getTasksOfActiveProject();
 
-    // if task list is not empty
-    if (tasks) {
-        // iterate through task list 
-        for (let i = 0; i < tasks.length; i++) {
-            if (!tasks[i].isComplete) {
-                document.querySelector('.incomplete').insertBefore(
-                    createTaskDiv(tasks[i]),
-                    document.querySelector('.add-task-minimized')
-                );
-            } else {
-                document.querySelector('.completed').appendChild(
-                    createTaskDiv(tasks[i])
-                );
-            }
-        }
+  // if task list is not empty
+  if (tasks) {
+    // iterate through task list
+    for (let i = 0; i < tasks.length; i++) {
+      if (!tasks[i].isComplete) {
+        document.querySelector('.incomplete').insertBefore(
+          createTaskDiv(tasks[i]),
+          document.querySelector('.add-task-minimized'),
+        );
+      } else {
+        document.querySelector('.completed').appendChild(
+          createTaskDiv(tasks[i]),
+        );
+      }
     }
+  }
 }
 
 export function changeDueDateView() {
-    let view = document.querySelector('.date.active-view')
-    
-    // toggle icon
-    if (view.textContent == 'today') {
-        view.textContent = 'hourglass_empty'
-    } else {
-        view.textContent = 'today'
-    }
+  const view = document.querySelector('.date.active-view');
 
-    // refresh tasks
-    updateTasks()
+  // toggle icon
+  if (view.textContent == 'today') {
+    view.textContent = 'hourglass_empty';
+  } else {
+    view.textContent = 'today';
+  }
+
+  // refresh tasks
+  updateTasks();
 }
 
 function createTaskDiv(task) {
-    let checkbox = createDiv('checkbox')
-    let icon = createTaskRadioButton(task)
-    checkbox.append(icon)
+  const checkbox = createDiv('checkbox');
+  const icon = createTaskRadioButton(task);
+  checkbox.append(icon);
 
-    let title = createDiv('title', task.title)
-    let taskID = createDiv('task-id', task.id)
+  const title = createDiv('title', task.title);
+  const taskID = createDiv('task-id', task.id);
 
-    let due = createDiv('due-date')
-    let view = document.querySelector('.active-view').textContent
-    
-    if (task.dueDate == '') { // if no due date
-        due.textContent = 'No due date'
-    } else if (view == 'today') { // if date view
-        due.textContent = `due ${format(task.dueDate, 'dd-MMM-yyyy')}`
-    } else { // if time remaining view
-        due.textContent = `due ${task.timeUntilDue}`
-    }
+  const due = createDiv('due-date');
+  const view = document.querySelector('.active-view').textContent;
 
-    let del = createDiv('delete')
-    let closeIcon = createTaskDeleteButton()
-    del.append(closeIcon)
-    del.addEventListener('click', removeTask)
+  if (task.dueDate == '') { // if no due date
+    due.textContent = 'No due date';
+  } else if (view == 'today') { // if date view
+    due.textContent = `due ${format(task.dueDate, 'dd-MMM-yyyy')}`;
+  } else { // if time remaining view
+    due.textContent = `due ${task.timeUntilDue}`;
+  }
 
-    let element = createDiv('task')
-    element.append(checkbox, title, taskID, due, del)
+  const del = createDiv('delete');
+  const closeIcon = createTaskDeleteButton();
+  del.append(closeIcon);
+  del.addEventListener('click', removeTask);
 
-    return element
+  const element = createDiv('task');
+  element.append(checkbox, title, taskID, due, del);
+
+  return element;
 }
 
 function createTaskRadioButton(task) {
-    let element = document.createElement('span')
-    element.classList.add('material-icons', 'task-radio-icon', task.priority)
-    element.textContent = 'radio_button_unchecked'
-    element.addEventListener('click', completeTask)
+  const element = document.createElement('span');
+  element.classList.add('material-icons', 'task-radio-icon', task.priority);
+  element.textContent = 'radio_button_unchecked';
+  element.addEventListener('click', completeTask);
 
-    return element
+  return element;
 }
 
 function createTaskDeleteButton() {
-    let element = document.createElement('span')
-    element.classList.add('material-icons', 'md-18', 'task-delete-icon')
-    element.textContent = 'close'
+  const element = document.createElement('span');
+  element.classList.add('material-icons', 'md-18', 'task-delete-icon');
+  element.textContent = 'close';
 
-    return element
+  return element;
 }
 
 function removeTask(e) {
-    let taskID = getTaskID(e)
-    getActiveProject().removeTask(taskID)
+  const taskID = getTaskID(e);
+  getActiveProject().removeTask(taskID);
 
-    // update local storage
-    saveToLocalStorage()
+  // update local storage
+  saveToLocalStorage();
 
-    updateTasks()
+  updateTasks();
 }
 
 function completeTask(e) {
-    let taskID = getTaskID(e)
+  const taskID = getTaskID(e);
 
-    let index = getTasksOfActiveProject().map(task => task.id).indexOf(taskID)
-    getTasksOfActiveProject()[index].toggleComplete()
+  const index = getTasksOfActiveProject().map((task) => task.id).indexOf(taskID);
+  getTasksOfActiveProject()[index].toggleComplete();
 
-    // update local storage
-    saveToLocalStorage()
+  // update local storage
+  saveToLocalStorage();
 
-    updateTasks()
+  updateTasks();
 }
 
 function getTaskID(e) {
-    let parent = e.target.parentNode.parentNode
-    return Number(parent.querySelector('.task-id').textContent)
+  const parent = e.target.parentNode.parentNode;
+  return Number(parent.querySelector('.task-id').textContent);
 }
 
 export function sortTasks() {
-    // read dropdown
-    let sortBy = document.querySelector('#sort').value
-    if (sortBy == 'none') return
+  // read dropdown
+  const sortBy = document.querySelector('#sort').value;
+  if (sortBy == 'none') return;
 
-    // read order
-    let order;
-    let element = document.querySelector('.order');
-    if (element.textContent == 'keyboard_double_arrow_up') {
-        order = 1; // ascending
-    } else {
-        order = -1; // descending
-    }
+  // read order
+  let order;
+  const element = document.querySelector('.order');
+  if (element.textContent == 'keyboard_double_arrow_up') {
+    order = 1; // ascending
+  } else {
+    order = -1; // descending
+  }
 
-    // get task list of active project
-    let tasks = getTasksOfActiveProject()
+  // get task list of active project
+  const tasks = getTasksOfActiveProject();
 
-    // sort tasks based on input
-    switch (sortBy) {
-        case 'date':
-            sortTasksByDueDate(tasks, order)
-            break;
-        case 'priority':
-            sortTasksByPriority(tasks, order)
-            break;
-        case 'name':
-            sortTasksByName(tasks, order)
-            break;
-    }
+  // sort tasks based on input
+  // eslint-disable-next-line default-case
+  switch (sortBy) {
+    case 'date':
+      sortTasksByDueDate(tasks, order);
+      break;
+    case 'priority':
+      sortTasksByPriority(tasks, order);
+      break;
+    case 'name':
+      sortTasksByName(tasks, order);
+      break;
+  }
 
-    // update local storage with sorted task list 
-    saveToLocalStorage()
+  // update local storage with sorted task list
+  saveToLocalStorage();
 
-    // update screen
-    updateTasks()
+  // update screen
+  updateTasks();
 }
 
 export function changeSortOrder(e) {
-    // update DOM
-    let order = document.querySelector('.order')
-    if (order.textContent == 'keyboard_double_arrow_down') {
-        order.textContent = 'keyboard_double_arrow_up'
-    } else {
-        order.textContent = 'keyboard_double_arrow_down'
-    }
+  // update DOM
+  const order = document.querySelector('.order');
+  if (order.textContent == 'keyboard_double_arrow_down') {
+    order.textContent = 'keyboard_double_arrow_up';
+  } else {
+    order.textContent = 'keyboard_double_arrow_down';
+  }
 
-    sortTasks()
+  sortTasks();
 }
 
 export function toggleCompletedTaskView() {
-    let button = document.querySelector('.view-completed-tasks .view-label')
-    let completed = document.querySelector('.completed')
+  const button = document.querySelector('.view-completed-tasks .view-label');
+  const completed = document.querySelector('.completed');
 
-    if (button.textContent == 'Show Completed') {
-        completed.style.display = 'block';
-        button.textContent = 'Hide Completed'
-    } else {
-        completed.style.display = 'none';
-        button.textContent = 'Show Completed'
-    }
+  if (button.textContent == 'Show Completed') {
+    completed.style.display = 'block';
+    button.textContent = 'Hide Completed';
+  } else {
+    completed.style.display = 'none';
+    button.textContent = 'Show Completed';
+  }
 }
