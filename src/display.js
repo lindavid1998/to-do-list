@@ -111,11 +111,14 @@ export function updateTasks() {
     if (tasks) {
         // iterate through task list 
         for (let i = 0; i < tasks.length; i++) {
-            // if task is incomplete, append to DOM
             if (!tasks[i].isComplete) {
                 document.querySelector('.incomplete').insertBefore(
                     createTaskDiv(tasks[i]),
                     document.querySelector('.add-task-minimized')
+                );
+            } else {
+                document.querySelector('.completed').appendChild(
+                    createTaskDiv(tasks[i])
                 );
             }
         }
@@ -196,8 +199,8 @@ function removeTask(e) {
 function completeTask(e) {
     let taskID = getTaskID(e)
 
-    let index = getActiveProject().tasks.map(task => task.id).indexOf(taskID)
-    getActiveProject().tasks[index].toggleComplete()
+    let index = getTasksOfActiveProject().map(task => task.id).indexOf(taskID)
+    getTasksOfActiveProject()[index].toggleComplete()
 
     // update local storage
     saveToLocalStorage()
@@ -257,4 +260,17 @@ export function changeSortOrder(e) {
     }
 
     sortTasks()
+}
+
+export function toggleCompletedTaskView() {
+    let button = document.querySelector('.view-completed-tasks .view-label')
+    let completed = document.querySelector('.completed')
+
+    if (button.textContent == 'Show Completed') {
+        completed.style.display = 'block';
+        button.textContent = 'Hide Completed'
+    } else {
+        completed.style.display = 'none';
+        button.textContent = 'Show Completed'
+    }
 }

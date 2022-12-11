@@ -3,7 +3,7 @@ import { Project, ProjectList } from './ProjectClass.js'
 import { Task } from './TaskClass'
 import { showAddTask } from './add-task.js';
 import { openAddProjectForm, closeAddProjectForm, addProjectClickHandler } from './add-project.js'
-import { updateScreen, changeDueDateView, changeSortOrder, sortTasks } from './display.js';
+import { updateScreen, changeDueDateView, changeSortOrder, sortTasks, toggleCompletedTaskView } from './display.js';
 
 export function loadLocalStorage() {
     // reads localStorage and writes to ProjectList.projects
@@ -18,7 +18,6 @@ export function loadLocalStorage() {
     for (let i = 0; i < projects.length; i++) {
         // get project tasks as raw object
         let rawTasks = projects[i].tasks 
-        // console.log(rawTasks)
         let constructedTasks = []
 
         // for each task in project
@@ -71,6 +70,7 @@ document.querySelector('.button.add-project').addEventListener('click', addProje
 document.querySelector('.due-date-view').addEventListener('click', changeDueDateView)
 document.querySelector('.order-view').addEventListener('click', changeSortOrder)
 document.querySelector('#sort').addEventListener('change', sortTasks)
+document.querySelector('.view-completed-tasks').addEventListener('click', toggleCompletedTaskView)
 
 // Reset session
 document.querySelector('.button.clear-all').addEventListener('click', () => {

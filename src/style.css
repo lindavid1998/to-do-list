@@ -231,17 +231,22 @@ input {
 }
 
 .task-radio-icon:hover {
+    cursor: pointer;
+}
+
+.incomplete .task-radio-icon:hover {
     color: #16a200;
 }
 
 .view-options {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .view-option {
     align-items: center;
-    border-radius: 5px;
+    background-color: hsl(0, 0%, 15%);
+    border-radius: 8px;
     display: flex;
     font-size: 0.9rem;
     gap: 10px;
@@ -251,7 +256,21 @@ input {
 }
 
 .view-option:hover {
-    background-color: #303030;
+    background-color: hsl(0, 0%, 18%);
+}
+
+.completed {
+    display: none;
+    margin-top: 30px;
+}
+
+.completed .task > *,
+.completed .task-radio-icon {
+    color: #545454;
+}
+
+.completed .section-header {
+    margin-bottom: 10px;
 }
 
 /* Add project/task styling */
