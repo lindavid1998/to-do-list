@@ -1,414 +1,421 @@
 /* General styling */
 
 @font-face {
-    font-family: Graphik;
-    src: url("./Graphik-Font-Family/GraphikRegular.otf") format("opentype");
+  font-family: Graphik;
+  src: url("./Graphik-Font-Family/GraphikRegular.otf") format("opentype");
 }
 
 @font-face {
-    font-family: Graphik;
-    font-weight: bold;
-    src: url("./Graphik-Font-Family/GraphikBold.otf") format("opentype");
+  font-family: Graphik;
+  font-weight: bold;
+  src: url("./Graphik-Font-Family/GraphikBold.otf") format("opentype");
 }
 
 * {
-    box-sizing: border-box;
-    color: #e6e6e6;
-    font-family: Graphik;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  color: #e6e6e6;
+  font-family: Graphik;
+  margin: 0;
+  padding: 0;
 }
 
 .material-icons.md-12 {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .material-icons.md-18 {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .material-icons.md-24 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .material-icons.md-36 {
-    font-size: 36px;
+  font-size: 36px;
 }
 
 .material-icons.md-48 {
-    font-size: 48px;
+  font-size: 48px;
 }
 
 .material-icons.red {
-    color: #9f2422;
+  color: #9f2422;
 }
 
-input:focus, textarea:focus, select:focus {
-    outline: none;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }
 
 input {
-    all: unset;
+  all: unset;
 }
 
 /* Page styling */
 
 .content {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    grid-template-rows: 60px 1fr 40px;
-    height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: 60px 1fr 40px;
+  height: 100vh;
 }
 
 .header {
-    align-items: center;
-    background-color: #282828;
-    display: flex;
-    font-size: 1.5rem;
-    font-weight: bold;
-    grid-column: 1 / -1;
-    grid-row: 1;
-    padding: 20px;
+  align-items: center;
+  background-color: #282828;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: bold;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  padding: 20px;
 }
 
 .header span {
-    font-size: 0.8rem;
-    margin-left: auto;
-    font-weight: normal;
+  font-size: 0.8rem;
+  margin-left: auto;
+  font-weight: normal;
 }
 
 .footer {
-    align-items: center;
-    background-color: #282828;
-    display: flex;
-    gap: 15px;
-    grid-column: 1 / -1;
-    grid-row: 3;
-    justify-content: center;
+  align-items: center;
+  background-color: #282828;
+  display: flex;
+  gap: 15px;
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-content: center;
 }
 
 /* Project section */
 
 .projects {
-    background-color: #252525;
-    grid-column: 1;
-    grid-row: 2;
-    padding: 20px;
+  background-color: #252525;
+  grid-column: 1;
+  grid-row: 2;
+  padding: 20px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .project-header {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .project {
-    align-items: center;
-    border-radius: 5px;
-    display: flex;
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 95%;
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 95%;
 }
 
 .project .delete-icon {
-    display: none;
-    margin-left: auto;
+  display: none;
+  margin-left: auto;
 }
 
 .project:hover .delete-icon {
-    align-items: center;
-    display: flex;
+  align-items: center;
+  display: flex;
 }
 
 .delete-icon:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .project:hover {
-    background-color: #303030;
+  background-color: #303030;
 }
 
 .add-project {
-    align-items: center;
-    display: flex;
-    font-size: 0.8rem;
-    margin-top: 20px;
+  align-items: center;
+  display: flex;
+  font-size: 0.8rem;
+  margin-top: 20px;
 }
 
 .add-project .icon {
-    width: 30px;
+  width: 30px;
 }
 
 /* Task section */
 
 .tasks {
-    background-color: #202020;
-    grid-column: 2;
-    grid-row: 2;
-    padding: 30px 80px;
+  background-color: #202020;
+  grid-column: 2;
+  grid-row: 2;
+  padding: 30px 80px;
 }
 
 .task {
-    align-items: center;
-    border-bottom: 1px solid #282828;
-    border-top: 1px solid #282828;
-    display: flex;
-    font-size: 0.9rem;
-    height: 50px;
-    margin-bottom: 10px;
-    max-width: 900px;
+  align-items: center;
+  border-bottom: 1px solid #282828;
+  border-top: 1px solid #282828;
+  display: flex;
+  font-size: 0.9rem;
+  height: 50px;
+  margin-bottom: 10px;
+  max-width: 900px;
 }
 
-.checkbox, .delete {
-    align-items: center;
-    display: flex;
+.checkbox,
+.delete {
+  align-items: center;
+  display: flex;
 }
 
 .checkbox {
-    width: 60px;
+  width: 60px;
 }
 
 .delete {
-    display: flex;
-    justify-content: right;
-    width: 30px;
+  display: flex;
+  justify-content: right;
+  width: 30px;
 }
 
 .delete span {
-    display: none;
+  display: none;
 }
 
 .task:hover .delete span {
-    display: block;
+  display: block;
 }
 
 .due-date {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .add-task-minimized {
-    align-items: center;
-    display: flex;
-    font-size: 0.8rem;
-    height: 30px;
+  align-items: center;
+  display: flex;
+  font-size: 0.8rem;
+  height: 30px;
 }
 
 .add-task-minimized .icon {
-    width: 40px;
+  width: 40px;
 }
 
 .add-task-minimized .label,
 .add-project .label {
-    color: #a8a8a8;
+  color: #a8a8a8;
 }
 
 .task-id {
-    display: none
+  display: none;
 }
 
 .p1 {
-    color: red;
+  color: red;
 }
 
 .p2 {
-    color: orange;
+  color: orange;
 }
 
 .p3 {
-    color: rgb(0, 115, 255);
+  color: rgb(0, 115, 255);
 }
 
 .task-delete-icon:hover {
-    color: #9f2422;
+  color: #9f2422;
 }
 
 .task-radio-icon:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .incomplete .task-radio-icon:hover {
-    color: #16a200;
+  color: #16a200;
 }
 
 .view-options {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .view-option {
-    align-items: center;
-    background-color: hsl(0, 0%, 15%);
-    border-radius: 8px;
-    display: flex;
-    font-size: 0.9rem;
-    gap: 10px;
-    margin-bottom: 10px;
-    padding: 8px;
-    width: fit-content; 
+  align-items: center;
+  background-color: hsl(0, 0%, 15%);
+  border-radius: 8px;
+  display: flex;
+  font-size: 0.9rem;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px;
+  width: fit-content;
 }
 
 .view-option:hover {
-    background-color: hsl(0, 0%, 18%);
+  background-color: hsl(0, 0%, 18%);
 }
 
 .completed {
-    display: none;
-    margin-top: 30px;
+  display: none;
+  margin-top: 30px;
 }
 
 .completed .task > *,
 .completed .task-radio-icon {
-    color: #545454;
+  color: #545454;
 }
 
 .completed .section-header {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* Add project/task styling */
 
-.user-input, .add-task-buttons {
-    max-width: 900px;
+.user-input,
+.add-task-buttons {
+  max-width: 900px;
 }
 
 .user-input {
-    border-radius: 5px;
-    border: 1px solid #282828;
-    margin-bottom: 15px;
-    padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #282828;
+  margin-bottom: 15px;
+  padding: 10px;
 }
 
-#task-title, input[type="text"] {
-    background-color:#202020;
-    border: none;
-    display: block;
-    resize: none;
+#task-title,
+input[type="text"] {
+  background-color: #202020;
+  border: none;
+  display: block;
+  resize: none;
 }
 
 textarea#task-title {
-    width: 100%;
+  width: 100%;
 }
 
 .additional-info {
-    align-items: center;
-    display: flex;
-    gap: 7px;
+  align-items: center;
+  display: flex;
+  gap: 7px;
 }
 
-#priority, input[type="date"], #sort {
-    background-color: #202020;
-    border-radius: 5px;
-    border: 1px solid #282828;
-    box-sizing: content-box;
-    color: #e6e6e6;
-    font-size: 0.8rem;
-    height: 20px;
-    line-height: 20px;
-    padding: 2px;
+#priority,
+input[type="date"],
+#sort {
+  background-color: #202020;
+  border-radius: 5px;
+  border: 1px solid #282828;
+  box-sizing: content-box;
+  color: #e6e6e6;
+  font-size: 0.8rem;
+  height: 20px;
+  line-height: 20px;
+  padding: 2px;
 }
 
 #priority .placeholder {
-    display: none;
+  display: none;
 }
 
 .add-task-buttons,
 .add-project-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: right;
+  display: flex;
+  gap: 15px;
+  justify-content: right;
 }
 
 .button {
-    border-radius: 5px;
-    border: none;
-    padding: 10px;
-    margin: 0;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  margin: 0;
 }
 
 .clear-all-button {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .button.add-project,
 .button.add-task,
 .button.clear-all {
-    background-color: #de4c4a;
+  background-color: #de4c4a;
 }
 
 .button.cancel-project,
 .button.cancel-task {
-    background-color:#282828;
+  background-color: #282828;
 }
 
 .button.add-project:hover,
 .button.add-task:hover,
 .button.clear-all:hover {
-    background-color: #dc322f;
-    cursor: pointer;
+  background-color: #dc322f;
+  cursor: pointer;
 }
 
 .button.cancel-project:hover,
 .button.cancel-task:hover {
-    background-color: #7e7e7e;
-    cursor: pointer;
+  background-color: #7e7e7e;
+  cursor: pointer;
 }
 
 .add-task-minimized:hover .material-icons.red,
 .add-project:hover .material-icons.red {
-    color: #dc322f;
+  color: #dc322f;
 }
 
 .add-task-minimized:hover .label,
 .add-project:hover .label {
-    color: white;
+  color: white;
 }
 
 .add-project-form {
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none;
-    height: 100vh;
-    left: 0;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  height: 100vh;
+  left: 0;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
 }
 
 .add-project-form form {
-    background-color: #131313;
-    border-radius: 4px;
-    border: 1px solid #7e7e7e;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 20% auto 0;
-    max-width: 400px;
-    padding: 20px;
+  background-color: #131313;
+  border-radius: 4px;
+  border: 1px solid #7e7e7e;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20% auto 0;
+  max-width: 400px;
+  padding: 20px;
 }
 
 .add-project-form p {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 }
 
 .add-project-form label {
-    padding-right: 10px;
+  padding-right: 10px;
 }
 
 .add-project-form input[type="text"] {
-    border-radius: 8px;
-    padding: 8px;
-    width: 300px;
+  border-radius: 8px;
+  padding: 8px;
+  width: 300px;
 }
 
 .form-row {
-    align-items: center;
-    display: flex;
+  align-items: center;
+  display: flex;
 }

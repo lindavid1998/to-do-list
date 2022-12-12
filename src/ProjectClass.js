@@ -9,7 +9,7 @@ const ProjectList = (() => {
 
   output.remove = function removeProject(name) {
     output.projects = output.projects.filter(
-      (project) => project.name !== name,
+      (project) => project.name !== name
     );
   };
 
@@ -44,15 +44,10 @@ function getActiveProject() {
 
 function getTasksOfActiveProject() {
   const activeProject = ProjectList.projects.find(
-    (project) => project.name === getActiveProject().name,
+    (project) => project.name === getActiveProject().name
   );
 
   return activeProject.tasks;
 }
 
-export {
-  Project,
-  ProjectList,
-  getActiveProject,
-  getTasksOfActiveProject,
-};
+export { Project, ProjectList, getActiveProject, getTasksOfActiveProject };

@@ -1,5 +1,5 @@
-import Task from './TaskClass';
-import { Project, ProjectList } from './ProjectClass';
+import Task from "./TaskClass";
+import { Project, ProjectList } from "./ProjectClass";
 
 export function loadLocalStorage() {
   // reads localStorage and writes to ProjectList.projects
@@ -24,7 +24,7 @@ export function loadLocalStorage() {
         rawTasks[j]._dueDate,
         rawTasks[j]._priority,
         rawTasks[j].isComplete,
-        rawTasks[j].id,
+        rawTasks[j].id
       );
 
       // save to tasks array
@@ -32,7 +32,11 @@ export function loadLocalStorage() {
     }
 
     // construct Project object
-    const project = new Project(projects[i].name, constructedTasks, projects[i].active);
+    const project = new Project(
+      projects[i].name,
+      constructedTasks,
+      projects[i].active
+    );
 
     // save to ProjectList.projects
     ProjectList.add(project);

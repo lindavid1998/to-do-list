@@ -24,22 +24,22 @@ function sortTasksByDueDate(tasks, order) {
     if (!a.dueDate && b.dueDate) {
       return 1;
       // if b has no due date but a does, sort after a
-    } if (!b.dueDate && a.dueDate) {
+    }
+    if (!b.dueDate && a.dueDate) {
       return -1;
       // if neither have due date, keep order
-    } if (!a.dueDate && !b.dueDate) {
+    }
+    if (!a.dueDate && !b.dueDate) {
       return 0;
-    } if (a.dueDate.getTime() > b.dueDate.getTime()) {
+    }
+    if (a.dueDate.getTime() > b.dueDate.getTime()) {
       return order * 1;
-    } if (a.dueDate.getTime() < b.dueDate.getTime()) {
+    }
+    if (a.dueDate.getTime() < b.dueDate.getTime()) {
       return order * -1;
     }
     return 0;
   });
 }
 
-export {
-  sortTasksByDueDate,
-  sortTasksByName,
-  sortTasksByPriority,
-};
+export { sortTasksByDueDate, sortTasksByName, sortTasksByPriority };
